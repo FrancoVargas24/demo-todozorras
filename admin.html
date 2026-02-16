@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Todo Zorras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff6b00',
+                        secondary: '#333333',
+                    },
+                    fontFamily: {
+                        oswald: ['Oswald', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Auth Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full">
+            <h2 class="text-2xl font-bold font-oswald text-center mb-6">Acceso Admin</h2>
+            <form id="login-form">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña (demo123)</label>
+                    <input type="password" id="password"
+                        class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                        required>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary text-white font-bold py-2 rounded hover:bg-orange-600 transition">
+                    Entrar
+                </button>
+                <div class="mt-4 text-center">
+                    <a href="index.html" class="text-sm text-gray-500 hover:text-primary">← Volver al sitio</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Navbar -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <span class="text-xl font-bold font-oswald text-secondary">PANEL DE CONTROL</span>
+            <div class="flex items-center space-x-4">
+                <a href="index.html" target="_blank" class="text-sm text-gray-500 hover:text-primary">Ver Sitio</a>
+                <button id="logout-btn"
+                    class="text-xs font-bold text-red-600 bg-red-50 px-3 py-1 rounded border border-red-100 uppercase tracking-wide hover:bg-red-100 transition-colors">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-10">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Productos</h1>
+            <button id="add-product-btn"
+                class="bg-primary text-white font-bold py-2 px-6 rounded shadow hover:bg-orange-600 transition flex items-center">
+                <span class="text-xl mr-2">+</span> Nuevo Producto
+            </button>
+        </div>
+
+        <!-- Product Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="w-full mx-auto">
+                <thead class="bg-gray-50 border-b">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Imagen</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Nombre</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Categoría</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Precio</th>
+                        <th class="px-4 py-3 text-right text-xs font-bold text-gray-500 uppercase">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-products-body">
+                    <!-- JS Rendered -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Product Modal (Add/Edit) -->
+    <div id="product-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modal-title" class="text-2xl font-bold font-oswald">Nuevo Producto</h3>
+                <button id="close-modal" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+
+            <form id="product-form" class="space-y-4">
+                <input type="hidden" id="product-id">
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Nombre</label>
+                    <input type="text" id="name"
+                        class="w-full px-3 py-2 border rounded focus:ring-1 focus:ring-primary focus:outline-none"
+                        required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Descripción</label>
+                    <textarea id="description" rows="3"
+                        class="w-full px-3 py-2 border rounded focus:ring-1 focus:ring-primary focus:outline-none"
+                        required></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Precio</label>
+                        <input type="number" id="price"
+                            class="w-full px-3 py-2 border rounded focus:ring-1 focus:ring-primary focus:outline-none"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Categoría</label>
+                        <select id="category"
+                            class="w-full px-3 py-2 border rounded focus:ring-1 focus:ring-primary focus:outline-none">
+                            <option value="Standard">Standard</option>
+                            <option value="Reforzados">Reforzados</option>
+                            <option value="Zorras">Zorras</option>
+                            <option value="Especiales">Especiales</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">URL de Imagen</label>
+                    <input type="url" id="image" placeholder="https://..."
+                        class="w-full px-3 py-2 border rounded focus:ring-1 focus:ring-primary focus:outline-none">
+                </div>
+
+                <div class="pt-4 border-t flex justify-end space-x-3">
+                    <button type="button" onclick="document.getElementById('product-modal').classList.add('hidden')"
+                        class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded">Cancelar</button>
+                    <button type="submit"
+                        class="px-6 py-2 bg-primary text-white font-bold rounded hover:bg-orange-600">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

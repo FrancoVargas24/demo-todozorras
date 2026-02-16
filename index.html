@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Zorras - Soluciones Logísticas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff6b00',
+                        secondary: '#333333',
+                    },
+                    fontFamily: {
+                        oswald: ['Oswald', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="bg-secondary text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold font-oswald tracking-widest text-primary">TODO ZORRAS</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#productos" class="hover:text-primary transition-colors">Productos</a>
+                <a href="#nosotros" class="hover:text-primary transition-colors">Empresa</a>
+                <a href="#contacto" class="hover:text-primary transition-colors">Contacto</a>
+            </div>
+            <a href="https://wa.me/5491112345678" target="_blank" class="bg-primary hover:bg-orange-600 text-white px-4 py-2 rounded font-bold transition-all">
+                WhatsApp
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-gray-900 h-[500px] flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')] bg-cover bg-center"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center md:text-left">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
+                MOVEMOS TU <br><span class="text-primary">INDUSTRIA</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-xl">
+                Fabricación y venta de zorras, carros y ruedas industriales. Soluciones robustas para logística y carga pesada.
+            </p>
+            <a href="#productos" class="btn-primary text-lg inline-block rounded">
+                Ver Catálogo
+            </a>
+        </div>
+    </header>
+
+    <!-- Products Grid -->
+    <section id="productos" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-secondary mb-4">Nuestros Productos</h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="mt-4 text-gray-600">Calidad garantizada para el trabajo duro.</p>
+            </div>
+            
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Products rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="nosotros" class="bg-secondary text-white py-20">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12 text-center">
+            <div class="p-6">
+                <div class="text-primary text-4xl mb-4">⚙️</div>
+                <h3 class="text-xl font-bold mb-2">Fabricación Propia</h3>
+                <p class="text-gray-400">Controlamos cada detalle del proceso para asegurar la máxima durabilidad.</p>
+            </div>
+            <div class="p-6">
+                <div class="text-primary text-4xl mb-4">🚚</div>
+                <h3 class="text-xl font-bold mb-2">Envíos a Todo el País</h3>
+                <p class="text-gray-400">Llegamos a cualquier punto de Argentina con la mejor logística.</p>
+            </div>
+            <div class="p-6">
+                <div class="text-primary text-4xl mb-4">🛡️</div>
+                <h3 class="text-xl font-bold mb-2">Garantía Asegurada</h3>
+                <p class="text-gray-400">Todos nuestros productos cuentan con garantía directa de fábrica.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto" class="bg-gray-900 text-white py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <span class="text-2xl font-bold font-oswald text-primary">TODO ZORRAS</span>
+                <p class="text-gray-500 mt-2">Soluciones industriales desde <span id="current-year"></span>.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-primary transition-colors">Instagram</a>
+                <a href="#" class="text-gray-400 hover:text-primary transition-colors">Facebook</a>
+                <a href="#" class="text-gray-400 hover:text-primary transition-colors">WhatsApp</a>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-gray-600 text-sm">
+            <a href="admin.html" class="hover:text-gray-400">Acceso Admin</a>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
